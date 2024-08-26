@@ -1,9 +1,13 @@
 # format-pde
 
-Simple extension to format Processing Java code (.pde files), using the code for the formatter of the Processing 4 IDE.
+Simple extension to format Processing Java code (.pde files), using the formatter from the Processing 4 IDE.
 
-## For more information
+Format entire document or selected range, or with a command.
 
-* [Github](https://github.com/jn3008)
+[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=joseffnic.format-pde)
+[Github](https://github.com/jn3008)
+
+To-do:
+- Add settings (e.g. indent size)
 
 **Enjoy!**
