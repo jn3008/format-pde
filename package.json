@@ -12,8 +12,11 @@
   ],
   "main": "./dist/extension.js",
   "activationEvents": [
-    "onLanguage:processing",
-    "onCommand:processing-formatter.format"
+    "onLanguage:pde"
+  ],
+  "keywords": [
+    "pde",
+    "Processing"
   ],
   "contributes": {
     "languages": [
@@ -21,29 +24,24 @@
         "id": "pde",
         "aliases": [
           "Processing",
+          "processing",
           "pde"
         ],
         "extensions": [
           ".pde"
-        ],
-        "configuration": "./language-configuration.json"
+        ]
       }
     ],
     "commands": [
       {
-        "command": "format-pde.helloWorld",
-        "title": "Hello World"
-      },
-      {
         "command": "format-pde.format",
         "title": "Format PDE: Format"
       }
-    ],
-    "configurationDefaults": {
-      "[pde]": {
-        "editor.defaultFormatter": "joseffnic.format-pde"
-      }
-    }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jn3008/format-pde.git"
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",

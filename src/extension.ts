@@ -11,7 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
 			const text = document.getText();
 
 			// Call formatter
-			const formattedText = formatProcessingCode(text);
+			const formattedText = format(text);
 
 			// Don't replace text if it's already formatted
 			if (formattedText !== text) {
@@ -26,6 +26,47 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	context.subscriptions.push(disposable);
+
+	disposable =
+		vscode.languages.registerDocumentFormattingEditProvider('pde', {
+			provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
+
+				const editor = vscode.window.activeTextEditor;
+				if (editor) {
+					const text = document.getText();
+					const formattedText = format(text);
+
+					// Don't replace text if it's already formatted
+					if (formattedText !== text) {
+						const firstLine = document.lineAt(0);
+						const lastLine = document.lineAt(document.lineCount - 1);
+						const fullRange = new vscode.Range(firstLine.range.start, lastLine.range.end);
+
+						return [vscode.TextEdit.replace(fullRange, formattedText)];
+					}
+				}
+				return [];
+			}
+		});
+
+	context.subscriptions.push(disposable);
+
+	disposable = vscode.languages.registerDocumentRangeFormattingEditProvider('pde', {
+		provideDocumentRangeFormattingEdits(document: vscode.TextDocument, range: vscode.Range): vscode.TextEdit[] {
+			const editor = vscode.window.activeTextEditor;
+			if (editor) {
+				const text = document.getText(range);
+				const formattedText = format(text);
+
+				// Don't replace text if it's already formatted
+				if (formattedText !== text) {
+					return [vscode.TextEdit.replace(range, formattedText)];
+				}
+			}
+			return [];
+		}
+	});
+
 }
 
 export function deactivate() { }
@@ -726,7 +767,7 @@ class AutoFormat {
 }
 
 
-function formatProcessingCode(text: string): string {
+function format(text: string): string {
 	let autoFormat = new AutoFormat();
 	return autoFormat.format(text);
 }
