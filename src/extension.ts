@@ -759,15 +759,15 @@ class AutoFormat {
 		// Remove extra spaces around operators like =, ==, >, <, >=, <=, !=, etc.
 		// result = result.replace(/\s*([=><!+\-*/%&|^~?:]+)\s*/g, '$1');
 
-		// Move misplaced { back to the end of the previous line
-		result = result.replace(/\n\s*{\n/g, ' {\n');
+		// Move misplaced { back to the end of the previous line, but avoid moving if it's 
+		// following a comment or a line with no control statement
+		result = result.replace(/(?<!\/\/.*)(?<![;{}])\n\s*{\n/g, ' {\n');
 
 		return result;
 	}
 }
 
-
 function format(text: string): string {
 	let autoFormat = new AutoFormat();
-	return autoFormat.format(text);
+	return autoFormat.format(autoFormat.format(text)); // apply format twice, sometimes necessary
 }

@@ -2,7 +2,7 @@
   "name": "format-pde",
   "displayName": "format.pde",
   "description": "Format .pde Processing Java files",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publisher": "joseffnic",
   "icon": "images/icon.png",
   "engines": {
